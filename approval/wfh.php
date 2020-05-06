@@ -36,7 +36,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading bg-red">
-                <a href="<?php echo  base_url() ?>"> Work From Home</a>
+                Work From Home
             </div>
             <div class="list-group list-group-flush">
                 <?php
@@ -44,7 +44,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     # code...
                 ?>
 
-                    <a href="<?php echo  site_url('approval/wfh') ?>" class="list-group-item list-group-item-action bg-light">Approval <span class="badge badge-primary">New</span></a>
+                    <a href="<?php echo  site_url('approval/wfh') ?>" class="list-group-item list-group-item-action bg-light">Work From Home <span class="badge badge-primary">New</span></a>
                 <?PHP
                 }
                 ?>
@@ -103,90 +103,91 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <h3 class="mt-4">Selamat datang di Aplikasi Pemantauan Kinerja WFH BBKPM BANDUNG </h3>
 
 
-                <br>
-                <br>
-                <h3>
-                    List Pegawai bawahan
-                </h3>
-                <div class="table-responsive mt-4">
-                    <table id="example" class="table table-striped table-bordered table-sm" style="width:100%">
-                        <thead>
-                            <tr>
-
-                                <th>Nama</th>
-
-
-                                <th>Status</th>
-                                <th>Approved By</th>
-
-                                <th>Tgl Absen</th>
-
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($detail_wfh->result() as $detail) {
-                                # code...
-
-                            ?>
+                    <br>
+                    <br>
+                    <h3>
+                        List Pegawai bawahan
+                    </h3>
+                    <button type="button" class="btn btn-primary setuju" onclick="laporan()"> <i class="fa fa-file-pdf"></i> Laporan</button>
+                    <div class="table-responsive mt-4">
+                        <table id="example" class="table table-striped table-bordered table-sm" data-multiple-select-row="true" style="width:100%">
+                            <thead>
                                 <tr>
-
-                                    <td><?php echo $detail->nama_pegawai ?></td>
-
-
-                                    <td>
-                                        <?php
-                                        // echo $detail->STATUS.$detail->nama_approved_by;
-                                        if ($detail->status >  $detail->atasan_ke) {
-
-                                            echo "<span class=\"badge badge-primary\">Approved</span>";
-                                        }
-                                        // elseif ($detail->STATUS >  $detail->atasan_ke) {
-                                        //     # code...
-                                        //     echo "<span class=\"badge badge-primary\">Approval</span>";
-                                        // }
-                                        else {
-                                            echo "<span class=\"badge badge-danger\">waiting</span>";
-                                        }
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th>Nama</th>
 
 
-                                        ?>
+                                    <th>Status</th>
+                                    <th>Approved By</th>
 
+                                    <th>Tgl Absen</th>
 
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-pill badge-success"><?php echo $detail->nama_approved_by ?></span>
-
-                                    </td>
-
-                                    <td>
-                                        <?php echo $detail->tgl_absen ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        if ($detail->id_wfh != "" and $detail->id_pegawai != "") {
-                                        ?>
-                                            <a href="<?php echo site_url("approval/wfh_detail?id=$detail->id_wfh&nip=" . ($detail->id_pegawai)) ?>" class="btn btn-primary btn-sm">Detail WFH</a>
-                                        <?php
-                                        } else {
-                                            # code...
-                                            echo "Belum Absen";
-                                        }
-
-                                        ?>
-                                    </td>
+                                    <th>Aksi</th>
                                 </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($detail_wfh->result() as $detail) {
+                                    # code...
 
-                    </table>
-                    <small>
-                        Menampilkan halaman dalam <strong>{elapsed_time}</strong> detik.
-                    </small>
-                </div>
+                                ?>
+                                    <tr>
+                                        <td><input type="checkbox" id="id_selected" value="<?php echo $detail->id_wfh; ?>"></td>
+                                        <td><?php echo $detail->nama_pegawai ?></td>
+
+
+                                        <td>
+                                            <?php
+                                            // echo $detail->STATUS.$detail->nama_approved_by;
+                                            if ($detail->status >  $detail->atasan_ke) {
+
+                                                echo "<span class=\"badge badge-primary\">Approved</span>";
+                                            }
+                                            // elseif ($detail->STATUS >  $detail->atasan_ke) {
+                                            //     # code...
+                                            //     echo "<span class=\"badge badge-primary\">Approval</span>";
+                                            // }
+                                            else {
+                                                echo "<span class=\"badge badge-danger\">waiting</span>";
+                                            }
+
+
+                                            ?>
+
+
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-pill badge-success"><?php echo $detail->nama_approved_by ?></span>
+
+                                        </td>
+
+                                        <td>
+                                            <?php echo $detail->tgl_absen ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if ($detail->id_wfh != "" and $detail->id_pegawai != "") {
+                                            ?>
+                                                <a href="<?php echo site_url("approval/wfh_detail?id=$detail->id_wfh&nip=" . ($detail->id_pegawai)) ?>" class="btn btn-primary btn-sm">Detail WFH</a>
+                                            <?php
+                                            } else {
+                                                # code...
+                                                echo "Belum Absen";
+                                            }
+
+                                            ?>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+
+                        </table>
+                        <small>
+                            Menampilkan halaman dalam <strong>{elapsed_time}</strong> detik.
+                        </small>
+                    </div>
 
 
             </div>
@@ -227,6 +228,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </script>
     <script src="<?php echo site_url('assets/vendor/datatables/js/dataTables.bootstrap4.min.js') ?>">
     </script>
+    <script src="<?php echo site_url('assets/vendor/sweetalert2/sweetalert2.all.min.js') ?>"></script>
 
     <?php $this->load->view('_includes/js.php'); ?>
 
@@ -257,6 +259,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 // }]
             });
         });
+
+        function laporan() {
+            let id = [];
+            $.each($("#id_selected:checked"), function(){
+                id.push($(this).val());
+            });
+            if (id != '') {
+                Swal.showLoading();
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "<?php echo base_url("Approval/laporan_pilihan") ?>");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.responseType = 'blob';
+
+                xhr.onreadystatechange = function() {
+                   if (this.readyState == 4 && this.status == 200) {
+                        var fileURL = window.URL.createObjectURL(this.response);
+                        var a       = document.createElement("a");
+                        a.setAttribute("target","_blank");
+                        a.href      = fileURL;
+                        a.show      = "Laporan Harian WFH.pdf";
+
+                        document.body.appendChild(a);
+                        a.click();
+                        Swal.fire('Berhasil','','success');
+                        a.parentNode.removeChild(a);
+                        w2popup.unlockScreen();
+                    }
+                }
+
+                var request_params = 'id_wfh='+id;
+                xhr.send(request_params);
+            } else {
+                swal.fire('Pilih Salah Satu!','','info');
+            }
+        }
     </script>
 
 

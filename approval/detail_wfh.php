@@ -141,7 +141,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <th>Demam</th>
                                     <th>Sesak</th>
                                     <th>Batuk</th>
-                                    <th>Nyeri nelan</th>
+                                    <th>Nyeri Menelan</th>
                                     <th>Status</th>
 
 
