@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+//BISMILLAH RULY TEST
+echo "1 2 3 4 5";
 ?>
 <!DOCTYPE html>
 <html lang="en">
